@@ -12,6 +12,12 @@ jobs:
           uses: actions/checkout@v2
           with:
             ref: main
+
+        - name: Install Java
+          run: 
+            | "sudo add-apt-repository ppa:webupd8team/java"
+            | "sudo apt-get update -y"
+            | "sudo udo apt-get install -y oracle-java8-installer"
         - name: Java 15 Compile
           run: "javac --release 15 -J-Xms1024m -J-Xmx1920m -J-Xss512m -encoding UTF-8 src/Main.java -d ."
         - name: Java 15 Run
