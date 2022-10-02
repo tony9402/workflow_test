@@ -107,7 +107,7 @@ jobs:
           run: "rm Main"
 
         - name: Go Compile
-          run: "go build src/main.go -o Main"
+          run: "go build -o Main src/main.go"
         - name: Go Run
           run: "./Main < example.in"
         - name: Clean
