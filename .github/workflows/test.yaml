@@ -36,7 +36,7 @@ jobs:
           run: "rm *.class"
 
         - name: C++20 Compile
-          run: "g++ src/main.cpp -o Main -O2 -Wall -lm -std=gnu++20"
+          run: "g++ src/main.cpp -o Main -O2 -Wall -lm -std=gnu++2a"
         - name: C++20 Run
           run: "./Main < example.in"
         - name: Clean
