@@ -1,0 +1,110 @@
+name: Workflow Test
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+jobs:
+    create-pull-requst:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            ref: main
+        - name: Java 15 Compile
+          run: "javac --release 15 -J-Xms1024m -J-Xmx1920m -J-Xss512m -encoding UTF-8 src/Main.java -d ."
+        - name: Java 15 Run
+          run: "java Main < example.in"
+        - name: Clean
+          run: "rm *.class"
+        - name: Java 11 Compile
+          run: "javac --release 11 -J-Xms1024m -J-Xmx1920m -J-Xss512m -encoding UTF-8 src/Main.java -d ."
+        - name: Java 11 Run
+          run: "java Main < example.in"
+        - name: Clean
+          run: "rm *.class"
+        - name: Java 8 Compile
+          run: "javac --release 8 -J-Xms1024m -J-Xmx1920m -J-Xss512m -encoding UTF-8 src/Main.java -d ."
+        - name: Java 8 Run
+          run: "java Main < example.in"
+        - name: Clean
+          run: "rm *.class"
+
+        - name: C++20 Compile
+          run: "g++ src/main.cpp -o Main -O2 -Wall -lm -std=gnu++20"
+        - name: C++20 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+        - name: C++17 Compile
+          run: "g++ src/main.cpp -o Main -O2 -Wall -lm -std=gnu++17"
+        - name: C++17 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+        - name: C++14 Compile
+          run: "g++ src/main.cpp -o Main -O2 -Wall -lm -std=gnu++14"
+        - name: C++14 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+
+        - name: C2X Compile
+          run: "gcc -std=gnu2x src/main.c -o Main"
+        - name: C2X Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+        - name: C11 Compile
+          run: "gcc -std=gnu11 src/main.c -o Main"
+        - name: C11 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+
+        - name: Python Run
+          run: "python3 < src/main.py"
+        
+        - name: Rust2021 Compile
+          run: "rustc --edition 2021 -O -o Main src/main.rs"
+        - name: Rust2021 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+        - name: Rust2018 Compile
+          run: "rustc --edition 2018 -O -o Main src/main.rs"
+        - name: Rust2018 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+        - name: Rust2015 Compile
+          run: "rustc --edition 2015 -O -o Main src/main.rs"
+        - name: Rust2015 Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+
+        - name: Kotlin Compile
+          run: "kotlinc-jvm -J-Xms1024m -J-Xmx1920m -J-Xss512m -include-runtime -d Main.jar src/main.kt"
+        - name: Kotlin Run
+          run: "java -Xms1024m -Xmx1920m -Xss512m -Dfile.encoding=UTF-8 -XX:+UseSerialGC -jar Main.jar < example.in"
+        - name: Clean
+          run: "rm Main.jar"
+
+        - name: Node.js Run
+          run: "node --stack-size=65536 src/main.js"
+
+        - name: Swift Compile
+          run: "swiftc -O -o Main src/main.swift"
+        - name: Swift Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
+
+        - name: Go Compile
+          run: "go build src/main.go"
+        - name: Go Run
+          run: "./Main < example.in"
+        - name: Clean
+          run: "rm Main"
