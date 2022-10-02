@@ -97,7 +97,7 @@ jobs:
           run: "rm Main.jar"
 
         - name: Node.js Run
-          run: "node --stack-size=65536 src/main.js"
+          run: "node --stack-size=65536 src/main.js < example.in"
 
         - name: Swift Compile
           run: "swiftc -O -o Main src/main.swift"
@@ -107,7 +107,7 @@ jobs:
           run: "rm Main"
 
         - name: Go Compile
-          run: "go build src/main.go"
+          run: "go build src/main.go -o Main"
         - name: Go Run
           run: "./Main < example.in"
         - name: Clean
